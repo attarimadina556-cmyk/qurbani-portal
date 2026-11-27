@@ -1,0 +1,20 @@
+{
+  "name": "alfajr-ijtemai-qurbani-portal",
+  "version": "2.0.0",
+  "description": "Al-Fajr Ijtemai Qurbani Executive Portal - 24/7 Cloud Edition",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "qurbani",
+    "portal",
+    "management",
+    "alfajr"
+  ],
+  "author": "Al-Fajr Committee",
+  "license": "ISC"
+}
