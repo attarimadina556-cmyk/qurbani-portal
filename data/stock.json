@@ -1,0 +1,54 @@
+{
+  "2026": {
+    "totalAnimals": 95,
+    "sharePerAnimal": 7,
+    "bakraAnimals": 0,
+    "notes": "Ijtemai Qurbani 1447H / 2026 Stock",
+    "batches": [
+      {
+        "id": "lot-1795679684576",
+        "date": "2026-11-26",
+        "title": "Kamptee ",
+        "animals": 10,
+        "rate": 80000,
+        "mandi": "Kamptee ",
+        "notes": ""
+      },
+      {
+        "id": "lot-2026-1",
+        "date": "2026-05-10",
+        "title": "Mominpura Mandi - Lot 1",
+        "animals": 50,
+        "rate": 28000,
+        "mandi": "Mominpura Nagpur",
+        "notes": "Awwal category bade jaanwar"
+      },
+      {
+        "id": "lot-2026-2",
+        "date": "2026-05-18",
+        "title": "Kamptee Mandi - Lot 2",
+        "animals": 35,
+        "rate": 29500,
+        "mandi": "Kamptee",
+        "notes": "Doem category tandurust jaanwar"
+      }
+    ]
+  },
+  "2027": {
+    "totalAnimals": 10,
+    "sharePerAnimal": 7,
+    "bakraAnimals": 0,
+    "notes": "Ijtemai Qurbani 1448H / 2027 Stock",
+    "batches": [
+      {
+        "id": "lot-2027-1",
+        "date": "2027-01-15",
+        "title": "Initial Booking Lot",
+        "animals": 10,
+        "rate": 30000,
+        "mandi": "Nagpur Mandi",
+        "notes": "Bade jaanwar 10 adad = 70 hisse"
+      }
+    ]
+  }
+}
