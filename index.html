@@ -1975,7 +1975,11 @@
             <i class="fa-solid fa-scroll"></i>
             <span>Preview Sanad</span>
           </button>
-  <button onclick="sendBookingReceiptDirectWhatsApp(currentReceiptOrder.id)" class="bg-[#0A4D2E] hover:bg-[#03381E] text-white text-xs font-black px-4 py-2 rounded-full flex items-center gap-1.5 cursor-pointer shadow transition active:scale-95" title="Direct WhatsApp Par Rasheed Image Aur Text Bhejein">
+  <button onclick="openOriginalUserSampleReceipt()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-black px-3.5 py-2 rounded-full flex items-center gap-1.5 cursor-pointer shadow transition active:scale-95" title="Aapki Bheji Hui Asli Rasheed Photo Dekhein">
+            <i class="fa-solid fa-paperclip text-amber-200"></i>
+            <span>Asli Template Photo</span>
+          </button>
+          <button onclick="sendBookingReceiptDirectWhatsApp(currentReceiptOrder.id)" class="bg-[#0A4D2E] hover:bg-[#03381E] text-white text-xs font-black px-4 py-2 rounded-full flex items-center gap-1.5 cursor-pointer shadow transition active:scale-95" title="Direct WhatsApp Par Rasheed Image Aur Text Bhejein">
             <i class="fa-brands fa-whatsapp text-emerald-300 text-sm"></i>
             <span>WhatsApp (Image + Text)</span>
           </button>
@@ -4501,6 +4505,14 @@
     }
 
     function buildOfficialQurbaniSlipHtml(ord) {
+      const stampSrc = (appSettings && appSettings.stampDataUrl && appSettings.stampDataUrl.startsWith('data:image'))
+        ? appSettings.stampDataUrl
+        : '/uploaded_user_stamp.jpg';
+
+      const sigSrc = (appSettings && appSettings.signatureDataUrl && appSettings.signatureDataUrl.startsWith('data:image'))
+        ? appSettings.signatureDataUrl
+        : '/uploaded_user_signature.jpg';
+
       const rcptNum = ord.receiptNo || ord.id || '3';
       const names = (Array.isArray(ord.qurbaniNames) && ord.qurbaniNames.length > 0)
         ? ord.qurbaniNames.filter(Boolean)
@@ -4689,57 +4701,38 @@
           </div>
 
           <!-- Bottom Authentic Seal, Dome Ornament & Signatory Row -->
-          <div style="display: flex; align-items: flex-end; justify-content: space-between; margin: 6px 0 6px 0; position: relative; z-index: 2;">
+          <div style="display: flex; align-items: flex-end; justify-content: space-between; margin: 8px 0 6px 0; position: relative; z-index: 2;">
             
-            <!-- Left: Markazi Mohar Seal -->
+            <!-- Left: Markazi Mohar Seal (User Real Official Stamp) -->
             <div style="text-align: center; width: 140px;">
-              <div style="width: 76px; height: 76px; position: relative; margin: 0 auto;">
-                <svg viewBox="0 0 120 120" style="width: 100%; height: 100%; filter: drop-shadow(0 2px 4px rgba(10, 77, 46, 0.2));">
-                  <path d="M60 4 L64 14 L75 8 L76 19 L88 17 L85 28 L97 30 L90 40 L101 45 L91 53 L100 60 L91 67 L101 75 L90 80 L97 90 L85 92 L88 103 L76 101 L75 112 L64 106 L60 116 L56 106 L45 112 L44 101 L32 103 L35 92 L23 90 L30 80 L19 75 L29 67 L20 60 L29 53 L19 45 L30 40 L23 30 L35 28 L32 17 L44 19 L45 8 L56 14 Z" fill="#0A4D2E" stroke="#06331E" stroke-width="1.5"/>
-                  <circle cx="60" cy="60" r="44" fill="#FFFFFF"/>
-                  <circle cx="60" cy="60" r="41" fill="#EEF8F0" stroke="#0A4D2E" stroke-width="1.5" stroke-dasharray="3,2"/>
-                  <path d="M60 27 C53 36 50 42 50 48 L70 48 C70 42 67 36 60 27 Z" fill="#0A4D2E"/>
-                  <rect x="54" y="48" width="12" height="7" fill="#0A4D2E"/>
-                  <circle cx="60" cy="25" r="2" fill="#D4AF37"/>
-                  <text x="60" y="66" font-size="8.5" font-weight="900" text-anchor="middle" fill="#0A4D2E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="1">AL-FAJR</text>
-                  <text x="60" y="76" font-size="7.5" font-weight="900" text-anchor="middle" fill="#0A4D2E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="0.5">COMMITTEE</text>
-                  <text x="60" y="86" font-size="8" font-weight="900" text-anchor="middle" fill="#06331E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="1">NAGPUR</text>
+              <div style="width: 86px; height: 86px; position: relative; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                <img src="${stampSrc}" style="max-width: 86px; max-height: 86px; object-fit: contain; display: block; border-radius: 50%; filter: drop-shadow(0 2px 4px rgba(10, 77, 46, 0.25));" alt="Markazi Mohar">
+              </div>
+              <div style="display: inline-block; background: #0A4D2E; color: #FFFFFF; font-size: 10.5px; font-weight: 900; padding: 2px 14px; border-radius: 9999px; margin-top: 4px; border: 1px solid #D4AF37; letter-spacing: 0.5px;">Markazi Mohar</div>
+            </div>
+
+            <!-- Center: Green Dome Ornament -->
+            <div style="text-align: center; flex: 1; padding: 0 10px; margin-bottom: 6px;">
+              <div style="width: 140px; height: 50px; margin: 0 auto; opacity: 0.85;">
+                <svg viewBox="0 0 240 80" style="width: 100%; height: 100%;" fill="none">
+                  <path d="M120 15 C105 28 98 42 98 62 L142 62 C142 42 135 28 120 15 Z" fill="#0A4D2E"/>
+                  <circle cx="120" cy="12" r="3.5" fill="#D4AF37"/>
+                  <line x1="120" y1="5" x2="120" y2="12" stroke="#D4AF37" stroke-width="2"/>
+                  <path d="M85 35 C75 44 70 52 70 62 L100 62 C100 52 95 44 85 35 Z" fill="#166534" opacity="0.6"/>
+                  <path d="M155 35 C145 44 140 52 140 62 L170 62 C170 52 165 44 155 35 Z" fill="#166534" opacity="0.6"/>
+                  <rect x="60" y="62" width="120" height="3" fill="#D4AF37"/>
                 </svg>
               </div>
-              <div style="margin-top: 2px;">
-                <span style="display: inline-block; background: #0A4D2E; color: #FFFFFF; font-size: 9.5px; font-weight: 800; padding: 1.5px 12px; border-radius: 9999px; border: 1px solid #D4AF37;">
-                  Markazi Mohar
-                </span>
-              </div>
             </div>
 
-            <!-- Center: Mosque Dome Ornament -->
-            <div style="text-align: center; flex: 1; padding-bottom: 6px;">
-              <div style="font-size: 28px; line-height: 1; color: #0A4D2E;">
-                <i class="fa-solid fa-mosque"></i>
+            <!-- Right: Official Committee Signature (User Real Official Signature) -->
+            <div style="text-align: center; width: 195px;">
+              <div style="height: 52px; display: flex; align-items: center; justify-content: center; margin-bottom: 2px;">
+                <img src="${sigSrc}" style="max-height: 52px; max-width: 190px; object-fit: contain; display: block;" alt="Al-Fajr Signature">
               </div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 2px;">
-                <span style="color: #D4AF37; font-size: 10px;">✦</span>
-                <div style="width: 36px; height: 1.5px; background: #D4AF37;"></div>
-                <span style="color: #0A4D2E; font-size: 8px;">★</span>
-                <div style="width: 36px; height: 1.5px; background: #D4AF37;"></div>
-                <span style="color: #D4AF37; font-size: 10px;">✦</span>
-              </div>
-            </div>
-
-            <!-- Right: Official Committee Signature -->
-            <div style="text-align: center; width: 150px;">
-              <div style="font-family: 'Brush Script MT', 'Dancing Script', cursive, serif; font-size: 26px; color: #0F172A; line-height: 1; height: 34px; display: flex; align-items: center; justify-content: center; font-style: italic; font-weight: 700;">
-                Al-Fajr Committee
-              </div>
-              <div style="font-size: 10.5px; font-weight: 900; color: #0A4D2E; margin-bottom: 2px;">
-                Al-Fajr Committee
-              </div>
-              <div>
-                <span style="display: inline-block; background: #0A4D2E; color: #FFFFFF; font-size: 9.5px; font-weight: 800; padding: 1.5px 12px; border-radius: 9999px; border: 1px solid #D4AF37;">
-                  Nazim-e-Ala / Signatory
-                </span>
-              </div>
+              <div style="border-top: 1.5px solid #0A4D2E; width: 150px; margin: 0 auto 3px auto;"></div>
+              <div style="font-family: Arial, sans-serif; font-size: 13px; font-weight: 800; color: #0A4D2E; text-transform: uppercase;">Al-Fajr Committee</div>
+              <div style="display: inline-block; background: #0A4D2E; color: #FFFFFF; font-size: 9.5px; font-weight: 900; padding: 1.5px 12px; border-radius: 9999px; border: 1px solid #D4AF37;">Nazim-e-Ala / Signatory</div>
             </div>
           </div>
 
@@ -4752,6 +4745,14 @@
     }
 
     function buildOfficialAqeeqahSlipHtml(ord) {
+      const stampSrc = (appSettings && appSettings.stampDataUrl && appSettings.stampDataUrl.startsWith('data:image'))
+        ? appSettings.stampDataUrl
+        : '/uploaded_user_stamp.jpg';
+
+      const sigSrc = (appSettings && appSettings.signatureDataUrl && appSettings.signatureDataUrl.startsWith('data:image'))
+        ? appSettings.signatureDataUrl
+        : '/uploaded_user_signature.jpg';
+
       const rcptNum = ord.receiptNo || ord.id || '4';
       const isBoy = (ord.aqeeqahGender === 'boy' || (!ord.aqeeqahGender && parseInt(ord.hissaCount || 1) === 2));
       const childName = ord.aqeeqahChildName || (Array.isArray(ord.qurbaniNames) && ord.qurbaniNames[0]) || ord.donorName;
@@ -4827,18 +4828,8 @@
           <div style="display: flex; align-items: center; justify-content: space-between; margin: 4px 0 6px 0; position: relative; z-index: 2;">
             
             <!-- Left Round Seal -->
-            <div style="width: 72px; height: 72px; shrink: 0;">
-              <svg viewBox="0 0 120 120" style="width: 100%; height: 100%; filter: drop-shadow(0 2px 4px rgba(10, 77, 46, 0.2));">
-                <circle cx="60" cy="60" r="56" fill="#0A4D2E"/>
-                <circle cx="60" cy="60" r="52" fill="#FFFFFF"/>
-                <circle cx="60" cy="60" r="48" fill="#EEF8F0" stroke="#0A4D2E" stroke-width="1.5" stroke-dasharray="3,2"/>
-                <path d="M60 22 C52 32 48 38 48 45 L72 45 C72 38 68 32 60 22 Z" fill="#0A4D2E"/>
-                <rect x="53" y="45" width="14" height="8" fill="#0A4D2E"/>
-                <circle cx="60" cy="20" r="2.5" fill="#D4AF37"/>
-                <text x="60" y="65" font-size="8.5" font-weight="900" text-anchor="middle" fill="#0A4D2E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="1">AL-FAJR</text>
-                <text x="60" y="75" font-size="7.5" font-weight="900" text-anchor="middle" fill="#0A4D2E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="0.5">COMMITTEE</text>
-                <text x="60" y="86" font-size="8" font-weight="900" text-anchor="middle" fill="#06331E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="1">NAGPUR</text>
-              </svg>
+            <div style="width: 76px; height: 76px; shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <img src="${stampSrc}" style="max-width: 76px; max-height: 76px; object-fit: contain; display: block; border-radius: 50%; filter: drop-shadow(0 2px 4px rgba(10, 77, 46, 0.2));" alt="Al-Fajr Seal">
             </div>
 
             <!-- Center Official Title -->
@@ -5021,64 +5012,39 @@
           </div>
 
           <!-- Bottom Row: Markazi Mohar Seal, Emerald Jazakallahu Khair Plaque, Signatory -->
-          <div style="display: flex; align-items: flex-end; justify-content: space-between; margin: 6px 0 2px 0; position: relative; z-index: 2;">
+          <div style="display: flex; align-items: flex-end; justify-content: space-between; margin: 8px 0 4px 0; position: relative; z-index: 2;">
             
-            <!-- Left: Markazi Mohar Seal -->
+            <!-- Left: Markazi Mohar Seal (User Real Official Stamp) -->
             <div style="text-align: center; width: 140px;">
-              <div style="width: 76px; height: 76px; position: relative; margin: 0 auto;">
-                <svg viewBox="0 0 120 120" style="width: 100%; height: 100%; filter: drop-shadow(0 2px 4px rgba(10, 77, 46, 0.2));">
-                  <path d="M60 4 L64 14 L75 8 L76 19 L88 17 L85 28 L97 30 L90 40 L101 45 L91 53 L100 60 L91 67 L101 75 L90 80 L97 90 L85 92 L88 103 L76 101 L75 112 L64 106 L60 116 L56 106 L45 112 L44 101 L32 103 L35 92 L23 90 L30 80 L19 75 L29 67 L20 60 L29 53 L19 45 L30 40 L23 30 L35 28 L32 17 L44 19 L45 8 L56 14 Z" fill="#0A4D2E" stroke="#06331E" stroke-width="1.5"/>
-                  <circle cx="60" cy="60" r="44" fill="#FFFFFF"/>
-                  <circle cx="60" cy="60" r="41" fill="#EEF8F0" stroke="#0A4D2E" stroke-width="1.5" stroke-dasharray="3,2"/>
-                  <path d="M60 27 C53 36 50 42 50 48 L70 48 C70 42 67 36 60 27 Z" fill="#0A4D2E"/>
-                  <rect x="54" y="48" width="12" height="7" fill="#0A4D2E"/>
-                  <circle cx="60" cy="25" r="2" fill="#D4AF37"/>
-                  <text x="60" y="66" font-size="8.5" font-weight="900" text-anchor="middle" fill="#0A4D2E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="1">AL-FAJR</text>
-                  <text x="60" y="76" font-size="7.5" font-weight="900" text-anchor="middle" fill="#0A4D2E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="0.5">COMMITTEE</text>
-                  <text x="60" y="86" font-size="8" font-weight="900" text-anchor="middle" fill="#06331E" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="1">NAGPUR</text>
-                </svg>
+              <div style="width: 86px; height: 86px; position: relative; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                <img src="${stampSrc}" style="max-width: 86px; max-height: 86px; object-fit: contain; display: block; border-radius: 50%; filter: drop-shadow(0 2px 4px rgba(10, 77, 46, 0.25));" alt="Markazi Mohar">
               </div>
-              <div style="margin-top: 2px;">
-                <span style="display: inline-block; background: #0A4D2E; color: #FFFFFF; font-size: 9.5px; font-weight: 800; padding: 1.5px 12px; border-radius: 9999px; border: 1px solid #D4AF37;">
-                  Markazi Mohar
-                </span>
-              </div>
+              <div style="display: inline-block; background: #0A4D2E; color: #FFFFFF; font-size: 10.5px; font-weight: 900; padding: 2px 14px; border-radius: 9999px; margin-top: 4px; border: 1px solid #D4AF37; letter-spacing: 0.5px;">Markazi Mohar</div>
             </div>
 
-            <!-- Center: Emerald Plaque with Gold Calligraphy (Jazakallahu Khairan) -->
+            <!-- Center: Emerald Jazakallahu Khair Calligraphy Plaque -->
             <div style="text-align: center; flex: 1; padding: 0 10px;">
-              <div style="background: #0A4D2E; border: 2px solid #D4AF37; border-radius: 14px; padding: 5px 18px; box-shadow: 0 3px 8px rgba(10, 77, 46, 0.25); display: inline-block;">
-                <div style="font-family: 'Amiri', serif; font-size: 19px; font-weight: 700; color: #FEF08A; line-height: 1.1;">
+              <div style="background: radial-gradient(circle at center, #0B532C 0%, #03381E 100%); border: 2.5px solid #D4AF37; border-radius: 18px; padding: 6px 16px; box-shadow: 0 3px 8px rgba(0,0,0,0.2), inset 0 0 0 1px #FDE68A; max-width: 250px; margin: 0 auto;">
+                <div style="font-family: 'Amiri', serif; font-size: 21px; font-weight: 700; color: #FFFFFF; line-height: 1.15;">
                   جَزَاكُمُ اللَّهُ خَيْرًا
                 </div>
-                <div style="font-size: 10px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px; margin-top: 1px;">
+                <div style="font-size: 11px; font-weight: 800; color: #FDE68A; letter-spacing: 0.8px; margin-top: 1px;">
                   Jazakum Allahu Khairan
                 </div>
               </div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 3px;">
-                <span style="color: #D4AF37; font-size: 9px;">✦</span>
-                <div style="width: 24px; height: 1.5px; background: #D4AF37;"></div>
-                <span style="color: #0A4D2E; font-size: 7px;">★</span>
-                <div style="width: 24px; height: 1.5px; background: #D4AF37;"></div>
-                <span style="color: #D4AF37; font-size: 9px;">✦</span>
-              </div>
             </div>
 
-            <!-- Right: Official Committee Signature -->
-            <div style="text-align: center; width: 150px;">
-              <div style="font-family: 'Brush Script MT', 'Dancing Script', cursive, serif; font-size: 26px; color: #0F172A; line-height: 1; height: 34px; display: flex; align-items: center; justify-content: center; font-style: italic; font-weight: 700;">
-                Al-Fajr Committee
+            <!-- Right: Official Committee Signature (User Real Official Signature) -->
+            <div style="text-align: center; width: 195px;">
+              <div style="height: 52px; display: flex; align-items: center; justify-content: center; margin-bottom: 2px;">
+                <img src="${sigSrc}" style="max-height: 52px; max-width: 190px; object-fit: contain; display: block;" alt="Al-Fajr Signature">
               </div>
-              <div style="font-size: 10.5px; font-weight: 900; color: #0A4D2E; margin-bottom: 2px;">
-                Al-Fajr Committee
-              </div>
-              <div>
-                <span style="display: inline-block; background: #0A4D2E; color: #FFFFFF; font-size: 9.5px; font-weight: 800; padding: 1.5px 12px; border-radius: 9999px; border: 1px solid #D4AF37;">
-                  Nazim-e-Ala / Signatory
-                </span>
-              </div>
+              <div style="border-top: 1.5px solid #0A4D2E; width: 150px; margin: 0 auto 3px auto;"></div>
+              <div style="font-family: Arial, sans-serif; font-size: 13px; font-weight: 800; color: #0A4D2E; text-transform: uppercase;">Al-Fajr Committee</div>
+              <div style="display: inline-block; background: #0A4D2E; color: #FFFFFF; font-size: 9.5px; font-weight: 900; padding: 1.5px 12px; border-radius: 9999px; border: 1px solid #D4AF37;">Nazim-e-Ala / Signatory</div>
             </div>
           </div>
+        </div>
         </div>
       `;
     }
@@ -6178,7 +6144,14 @@ function sendReceiptActiveWhatsApp() {
     // -------------------------------------------------------------------------
     // RECEIPT PREVIEW, PNG IMAGE DOWNLOAD & PDF GENERATION
     // -------------------------------------------------------------------------
-    function viewReceipt(orderId) {
+    
+    function openOriginalUserSampleReceipt() {
+      if (!currentReceiptOrder) return;
+      const isAq = (currentReceiptOrder.orderType === 'aqeeqah' || (currentReceiptOrder.donorName && currentReceiptOrder.donorName.includes('عقیقہ')));
+      const targetImg = isAq ? '/receipt_aqeeqah_user_sample.jpg' : '/receipt_qurbani_user_sample.jpg';
+      window.open(targetImg, '_blank');
+    }
+  function viewReceipt(orderId) {
       const list = getActiveYearOrders();
       let ord = list.find(o => o.id === orderId || o.receiptNo === orderId);
       if (!ord) ord = orders2026.find(o => String(o.receiptNo) === String(orderId));
