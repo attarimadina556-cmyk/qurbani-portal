@@ -574,7 +574,61 @@
 
           
           <!-- DEDICATED ANIMAL & SHARE LIVE STOCK MANAGEMENT EXECUTIVE CARD (جانور و حصہ لائیو اسٹاک مینجمنٹ) -->
-          <div id="dashStockCard" class="bg-white rounded-[28px] p-5 sm:p-6 border-2 border-emerald-500/30 shadow-md mb-5 relative overflow-hidden transition hover:shadow-lg">
+          
+          <!-- ========================================================================= -->
+          <!-- AQEEQAH BOOKINGS HIGHLIGHT & LIVE STATS TRACKER (عقیقہ بکنگ سسٹم) -->
+          <!-- ========================================================================= -->
+          <div id="aqeeqahDashboardBanner" class="mb-5 bg-gradient-to-r from-[#1E1B4B] via-[#2E1065] to-[#0F172A] text-white rounded-[26px] p-4 sm:p-5 border-2 border-indigo-500/50 shadow-xl relative overflow-hidden transition hover:shadow-2xl">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
+              <div class="flex items-center gap-3.5">
+                <div class="w-13 h-13 rounded-2xl bg-indigo-600/90 border border-indigo-400 text-white flex items-center justify-center text-2xl shadow-inner shrink-0">
+                  <i class="fa-solid fa-baby"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 class="text-base font-black text-white tracking-wide">عقیقہ بکنگ سسٹم (Aqeeqah Bookings & Live Tracker)</h4>
+                    <span class="text-[10px] font-black bg-indigo-400/20 text-indigo-200 border border-indigo-400/40 px-2.5 py-0.5 rounded-full">
+                      ✨ شریعتِ مطہرہ
+                    </span>
+                  </div>
+                  <p class="text-xs text-indigo-200 mt-0.5 font-medium">
+                    لڑکے میں ۲ حصّے اور لڑکی میں ۱ حصّہ شرعی • نیچے دیے گئے کاؤنٹرز پر کلک کر کے فلٹر کریں
+                  </p>
+                </div>
+              </div>
+
+              <!-- Stats Counters Strip -->
+              <div class="flex items-center gap-2 sm:gap-4 shrink-0 bg-white/10 backdrop-blur-md px-3 sm:px-4 py-2 rounded-2xl border border-white/15 flex-wrap justify-between sm:justify-end">
+                <div class="text-center px-2 cursor-pointer hover:opacity-80 transition" onclick="filterOrdersByAqeeqah('AQEEQAH')" title="عقیقہ کے سبھی آرڈرز دیکھیں">
+                  <div class="text-xl sm:text-2xl font-black text-white" id="dashAqeeqahTotal">0</div>
+                  <span class="text-[9px] font-black text-indigo-200 uppercase block">کل عقیقہ آرڈرز</span>
+                </div>
+                <div class="h-8 w-px bg-white/20"></div>
+                <div class="text-center px-2 cursor-pointer hover:opacity-80 transition" onclick="filterOrdersByAqeeqah('AQEEQAH_BOY')" title="صرف لڑکوں کے عقیقہ (2 حصے)">
+                  <div class="text-xl sm:text-2xl font-black text-cyan-300" id="dashAqeeqahBoys">0</div>
+                  <span class="text-[9px] font-black text-indigo-200 uppercase block">👦 لڑکے (2H)</span>
+                </div>
+                <div class="h-8 w-px bg-white/20"></div>
+                <div class="text-center px-2 cursor-pointer hover:opacity-80 transition" onclick="filterOrdersByAqeeqah('AQEEQAH_GIRL')" title="صرف لڑکیوں کے عقیقہ (1 حصہ)">
+                  <div class="text-xl sm:text-2xl font-black text-pink-300" id="dashAqeeqahGirls">0</div>
+                  <span class="text-[9px] font-black text-indigo-200 uppercase block">👧 لڑکیاں (1H)</span>
+                </div>
+                <div class="h-8 w-px bg-white/20"></div>
+                <div class="text-center px-2 cursor-pointer hover:opacity-80 transition" onclick="filterOrdersByAqeeqah('AQEEQAH')" title="عقیقہ کے کل حصے">
+                  <div class="text-xl sm:text-2xl font-black text-amber-300" id="dashAqeeqahHisse">0</div>
+                  <span class="text-[9px] font-black text-amber-200 uppercase block">🐐 کل حصّے</span>
+                </div>
+                <div class="pl-2 border-l border-white/20">
+                  <button onclick="openNewAqeeqahOrderModal()" class="bg-indigo-500 hover:bg-indigo-600 active:scale-95 text-white text-xs font-black px-3.5 py-2.5 rounded-xl transition shadow flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-plus text-[10px]"></i>
+                    <span>+ عقیقہ بکنگ</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+<div id="dashStockCard" class="bg-white rounded-[28px] p-5 sm:p-6 border-2 border-emerald-500/30 shadow-md mb-5 relative overflow-hidden transition hover:shadow-lg">
             
             <!-- Top Gradient Accent Strip -->
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-600 via-amber-500 to-forestGreen"></div>
@@ -995,6 +1049,16 @@
                   <option value="ALL">Sabhi Payment</option>
                   <option value="PAID">Mukammal Ada (Paid)</option>
                   <option value="DUE">Baqaya (Balance Due)</option>
+                </select>
+              </div>
+              <!-- Booking Type Filter (Qurbani vs Aqeeqah) -->
+              <div>
+                <select id="orderTypeFilter" onchange="applyOrderFilters()" class="w-full px-3 py-2 text-xs rounded-full bg-indigo-50/90 border-2 border-indigo-300 focus:outline-none font-black text-indigo-950 cursor-pointer">
+                  <option value="ALL">Sabhi Bookings (All)</option>
+                  <option value="QURBANI">🕋 Sirf Qurbani (قربانی)</option>
+                  <option value="AQEEQAH">👶 Sirf Aqeeqah (عقیقہ - Sabhi)</option>
+                  <option value="AQEEQAH_BOY">👦 Aqeeqah - Larke (2 Hisse)</option>
+                  <option value="AQEEQAH_GIRL">👧 Aqeeqah - Larkiyan (1 Hissa)</option>
                 </select>
               </div>
 
@@ -1653,6 +1717,51 @@
       </div>
 
       <form onsubmit="handleSaveOrder(event)" class="mt-4 space-y-3.5">
+        <!-- BOOKING PURPOSE: QURBANI VS AQEEQAH -->
+        <div class="bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1.5 border border-slate-200">
+          <button type="button" id="btnTypeQurbani" onclick="setOrderBookingType('qurbani')" class="flex-1 py-2 rounded-xl text-xs font-black transition cursor-pointer flex items-center justify-center gap-1.5 bg-[#0A4D2E] text-white shadow-sm">
+            <i class="fa-solid fa-moon"></i>
+            <span>🕋 قربانی (Qurbani)</span>
+          </button>
+          <button type="button" id="btnTypeAqeeqah" onclick="setOrderBookingType('aqeeqah')" class="flex-1 py-2 rounded-xl text-xs font-black transition cursor-pointer flex items-center justify-center gap-1.5 text-slate-700 hover:text-indigo-900 hover:bg-white">
+            <i class="fa-solid fa-baby text-indigo-600"></i>
+            <span>👶 عقیقہ (Aqeeqah)</span>
+          </button>
+          <input type="hidden" id="orderBookingType" value="qurbani">
+        </div>
+
+        <!-- AQEEQAH SPECIFIC OPTIONS (Larka / Larki) -->
+        <div id="aqeeqahOptionsBox" class="hidden p-3.5 rounded-2xl bg-indigo-50 border-2 border-indigo-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-indigo-950 flex items-center gap-1.5">
+              <i class="fa-solid fa-child text-indigo-600"></i>
+              <span>عقیقہ کی قسم (شریعت کے مطابق حصّے):</span>
+            </span>
+            <span class="text-[10px] font-bold text-indigo-700 bg-white px-2 py-0.5 rounded-full border border-indigo-200">
+              لڑکے میں ۲ حصّے • لڑکی میں ۱ حصّہ
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="btnAqBoy" onclick="setAqeeqahGender('boy')" class="py-2.5 px-3 rounded-xl border-2 font-black text-xs flex items-center justify-center gap-2 cursor-pointer transition bg-indigo-600 text-white border-indigo-700 shadow-sm">
+              <i class="fa-solid fa-child"></i>
+              <span>👦 لڑکا (Boy) - ۲ حصّے</span>
+            </button>
+            <button type="button" id="btnAqGirl" onclick="setAqeeqahGender('girl')" class="py-2.5 px-3 rounded-xl border-2 font-black text-xs flex items-center justify-center gap-2 cursor-pointer transition bg-white text-slate-700 border-slate-300 hover:border-pink-400">
+              <i class="fa-solid fa-child-dress text-pink-500"></i>
+              <span>👧 لڑکی (Girl) - ۱ حصّہ</span>
+            </button>
+          </div>
+          <input type="hidden" id="orderAqeeqahGender" value="boy">
+
+          <div>
+            <label class="block text-[11px] font-bold text-indigo-950 mb-1" id="aqeeqahChildLabel">
+              بچے کا نام بمع ولدیت (Child Name with Father):
+            </label>
+            <input type="text" id="orderAqeeqahChildName" oninput="handleAqeeqahChildNameInput()" placeholder="مثلاً: محمد زین ولد برہان عطاری" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+          </div>
+        </div>
+
         <input type="hidden" id="editOrderId" value="">
         <input type="hidden" id="editOrderYear" value="2027">
 
@@ -1829,7 +1938,7 @@
 
         <button type="submit" class="w-full bg-forestGreen hover:bg-forestGreenHover active:scale-[0.98] text-white font-black text-xs py-3.5 rounded-full transition shadow-lg cursor-pointer flex items-center justify-center gap-2">
           <i class="fa-solid fa-circle-check text-sm"></i>
-          <span>✓ Confirm Order (ऑर्डर कन्फर्म करें & WhatsApp अलर्ट)</span>
+          <span>✓ Confirm Order & Direct VIP WhatsApp (آرڈر محفوظ اور ڈائریکٹ واٹس ایپ رسید)</span>
         </button>
       </form>
     </div>
@@ -3861,6 +3970,11 @@
       let pendingCount = 0;
       let pendingHisse = 0;
 
+      let aqTotal = 0;
+      let aqBoys = 0;
+      let aqGirls = 0;
+      let aqHisse = 0;
+
       orders.forEach(o => {
         const h = parseInt(o.hissaCount || 1);
         const total = parseFloat(o.totalAmount || 0);
@@ -3880,7 +3994,25 @@
           pendingCount++;
           pendingHisse += h;
         }
+
+        const isAq = (o.orderType === 'aqeeqah' || (o.donorName && o.donorName.includes('عقیقہ')) || (o.qurbaniNames && o.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
+        if (isAq) {
+          aqTotal++;
+          aqHisse += h;
+          if (o.aqeeqahGender === 'boy' || (!o.aqeeqahGender && h === 2)) aqBoys++;
+          else if (o.aqeeqahGender === 'girl' || (!o.aqeeqahGender && h === 1)) aqGirls++;
+          else aqBoys++;
+        }
       });
+
+      const elAqTot = document.getElementById('dashAqeeqahTotal');
+      if (elAqTot) elAqTot.innerText = aqTotal;
+      const elAqB = document.getElementById('dashAqeeqahBoys');
+      if (elAqB) elAqB.innerText = aqBoys;
+      const elAqG = document.getElementById('dashAqeeqahGirls');
+      if (elAqG) elAqG.innerText = aqGirls;
+      const elAqH = document.getElementById('dashAqeeqahHisse');
+      if (elAqH) elAqH.innerText = aqHisse;
 
       document.getElementById('dashTotalOrders').innerText = totalCount;
       const dashTotalHisseEl = document.getElementById('dashTotalHisse');
@@ -4107,6 +4239,15 @@
           }
         }
 
+        const typeF = document.getElementById('orderTypeFilter')?.value || 'ALL';
+        if (typeF !== 'ALL') {
+          const isAq = (o.orderType === 'aqeeqah' || (o.donorName && o.donorName.includes('عقیقہ')) || (o.qurbaniNames && o.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
+          if (typeF === 'QURBANI' && isAq) return false;
+          if (typeF === 'AQEEQAH' && !isAq) return false;
+          if (typeF === 'AQEEQAH_BOY' && (!isAq || (o.aqeeqahGender !== 'boy' && parseInt(o.hissaCount || 1) !== 2))) return false;
+          if (typeF === 'AQEEQAH_GIRL' && (!isAq || (o.aqeeqahGender !== 'girl' && parseInt(o.hissaCount || 1) !== 1))) return false;
+        }
+
         if (statusF !== 'ALL') {
           const curSt = normalizeStatus(o.zibahStatus || o.orderStatus);
           if (statusF !== curSt) return false;
@@ -4197,11 +4338,20 @@
             </td>
 
             <td class="py-3 px-3">
-              <span class="px-2 py-0.5 rounded-full bg-forestGreen text-white text-[10px] font-black">
-                ${o.hissaCount || 1} Hissa
-              </span>
+              ${(() => {
+                const isAq = (o.orderType === 'aqeeqah' || (o.donorName && o.donorName.includes('عقیقہ')) || (o.qurbaniNames && o.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
+                const isBoy = (o.aqeeqahGender === 'boy' || (isAq && parseInt(o.hissaCount || 1) === 2));
+                if (isAq) {
+                  if (isBoy) {
+                    return `<span class="px-2.5 py-0.5 rounded-full bg-indigo-700 text-white text-[10px] font-black inline-flex items-center gap-1 shadow-sm"><i class="fa-solid fa-child text-[9px]"></i><span>عقیقہ لڑکا (${o.hissaCount || 2}H)</span></span>`;
+                  } else {
+                    return `<span class="px-2.5 py-0.5 rounded-full bg-pink-700 text-white text-[10px] font-black inline-flex items-center gap-1 shadow-sm"><i class="fa-solid fa-child-dress text-[9px]"></i><span>عقیقہ لڑکی (${o.hissaCount || 1}H)</span></span>`;
+                  }
+                }
+                return `<span class="px-2 py-0.5 rounded-full bg-forestGreen text-white text-[10px] font-black">${o.hissaCount || 1} Hissa</span>`;
+              })()}
               <span class="text-[10px] text-slate-600 block mt-0.5 truncate max-w-[140px]">
-                ${Array.isArray(o.qurbaniNames) && o.qurbaniNames.length ? o.qurbaniNames[0] : (o.donorName || 'Apne Naam')}
+                ${o.aqeeqahChildName ? ('👶 ' + o.aqeeqahChildName) : (Array.isArray(o.qurbaniNames) && o.qurbaniNames.length ? o.qurbaniNames[0] : (o.donorName || 'Apne Naam'))}
               </span>
             </td>
 
@@ -4236,8 +4386,8 @@
                   <i class="fa-solid fa-receipt mr-1"></i> Rasheed
                 </button>
 
-                <button onclick="sendBookingWhatsApp('${o.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded-full cursor-pointer" title="Booking Confirmation WhatsApp Message Bhejein">
-                  <i class="fa-brands fa-whatsapp mr-0.5"></i> Confirm WA
+                <button onclick="sendBookingReceiptDirectWhatsApp('${o.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black px-2.5 py-1 rounded-full cursor-pointer shadow-sm flex items-center gap-1" title="Direct VIP WhatsApp Bhejein">
+                  <i class="fa-brands fa-whatsapp text-xs"></i> <span>Confirm WA</span>
                 </button>
 
                 <button onclick="sendAgentOrderConfirmationWhatsApp('${o.id}')" class="bg-amber-600 hover:bg-amber-700 text-white text-[10px] font-bold px-2 py-1 rounded-full cursor-pointer" title="Agent / Marfat Ko WhatsApp Confirmation Bhejein">
@@ -4482,12 +4632,27 @@
                 <div style="font-family: 'Amiri', serif; font-size: 26px; font-weight: 700; color: #0A4D2E; line-height: 1.2;">
                   بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                 </div>
-                <div style="font-family: 'Amiri', serif; font-size: 14.5px; font-weight: 700; color: #0A4D2E; line-height: 1.25; margin-top: 1px;">
-                  لَن يَنَالَ اللَّهَ لُحُومُهَا وَلَا دِمَاؤُهَا وَلَٰكِن يَنَالُهُ التَّقْوَىٰ مِنكُمْ
-                </div>
-                <div style="font-size: 9.5px; font-weight: 800; color: #B8860B; letter-spacing: 0.5px;">
-                  (Surah Al-Hajj: 37)
-                </div>
+                ${(() => {
+                  const isAq = (ord.orderType === 'aqeeqah' || (ord.donorName && ord.donorName.includes('عقیقہ')) || (ord.qurbaniNames && ord.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
+                  if (isAq) {
+                    return `
+                      <div style="font-family: 'Amiri', serif; font-size: 14px; font-weight: 700; color: #0A4D2E; line-height: 1.25; margin-top: 1px;">
+                        كُلُّ غُلَامٍ رَهِينَةٌ بِعَقِيقَتِهِ تُذْبَحُ عَنْهُ يَوْمَ سَابِعِهِ وَيُحْلَقُ وَيُسَمَّى
+                      </div>
+                      <div style="font-size: 9.5px; font-weight: 800; color: #B8860B; letter-spacing: 0.5px;">
+                        (Sunan Abi Dawud & Tirmidhi - Hadith-e-Aqeeqah)
+                      </div>
+                    `;
+                  }
+                  return `
+                    <div style="font-family: 'Amiri', serif; font-size: 14.5px; font-weight: 700; color: #0A4D2E; line-height: 1.25; margin-top: 1px;">
+                      لَن يَنَالَ اللَّهَ لُحُومُهَا وَلَا دِمَاؤُهَا وَلَٰكِن يَنَالُهُ التَّقْوَىٰ مِنكُمْ
+                    </div>
+                    <div style="font-size: 9.5px; font-weight: 800; color: #B8860B; letter-spacing: 0.5px;">
+                      (Surah Al-Hajj: 37)
+                    </div>
+                  `;
+                })()}
               </div>
 
               <div style="border: 2px solid #0A4D2E; background: #EEF8F0; border-radius: 10px; padding: 4px 14px; text-align: center; box-shadow: 0 2px 4px rgba(10,77,46,0.12); min-width: 100px;">
@@ -4512,28 +4677,80 @@
             </div>
 
             <!-- Authentic Rasheed Book Title Banner (Vertically & Horizontally Dead-Centered) -->
-            <div style="display: flex; align-items: center; justify-content: center; margin: 6px 0 9px 0; position: relative; z-index: 2;">
-              <div style="background: linear-gradient(135deg, #0A4D2E 0%, #166534 100%); color: #FFFFFF !important; border: 2px solid #D4AF37; border-radius: 9999px; box-shadow: 0 3px 10px rgba(10, 77, 46, 0.25); height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0 28px; box-sizing: border-box; gap: 10px;">
-                <span style="color: #FDE68A; font-size: 12px; line-height: 1;">★</span>
-                <span style="font-family: 'Plus Jakarta Sans', Arial, sans-serif; font-size: 14.5px; font-weight: 800; letter-spacing: 0.8px; line-height: 1; text-transform: uppercase; color: #FFFFFF !important; display: inline-flex; align-items: center;">OFFICIAL IJTEMAI QURBANI SLIP</span>
-                <span style="color: #FDE68A; font-size: 12px; line-height: 1;">✦</span>
-                <span style="font-family: 'Amiri', 'Noto Naskh Arabic', serif; font-size: 16.5px; font-weight: 700; line-height: 1; color: #FFFFFF !important; display: inline-flex; align-items: center;">آفیشل اجتماعی قربانی سلپ</span>
-                <span style="color: #FDE68A; font-size: 12px; line-height: 1;">★</span>
-              </div>
-            </div>
+            ${(() => {
+              const isAq = (ord.orderType === 'aqeeqah' || (ord.donorName && ord.donorName.includes('عقیقہ')) || (ord.qurbaniNames && ord.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
+              if (isAq) {
+                return `
+                  <div style="display: flex; align-items: center; justify-content: center; margin: 6px 0 9px 0; position: relative; z-index: 2;">
+                    <div style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%); color: #FFFFFF !important; border: 2px solid #D4AF37; border-radius: 9999px; box-shadow: 0 3px 10px rgba(30, 27, 75, 0.3); height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0 28px; box-sizing: border-box; gap: 10px;">
+                      <span style="color: #FDE68A; font-size: 12px; line-height: 1;">★</span>
+                      <span style="font-family: 'Plus Jakarta Sans', Arial, sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 0.8px; line-height: 1; text-transform: uppercase; color: #FFFFFF !important; display: inline-flex; align-items: center;">OFFICIAL AQEEQAH BOOKING SLIP</span>
+                      <span style="color: #FDE68A; font-size: 12px; line-height: 1;">✦</span>
+                      <span style="font-family: 'Amiri', 'Noto Naskh Arabic', serif; font-size: 16.5px; font-weight: 700; line-height: 1; color: #FFFFFF !important; display: inline-flex; align-items: center;">آفیشل عقیقہ رسید</span>
+                      <span style="color: #FDE68A; font-size: 12px; line-height: 1;">★</span>
+                    </div>
+                  </div>
+                `;
+              }
+              return `
+                <div style="display: flex; align-items: center; justify-content: center; margin: 6px 0 9px 0; position: relative; z-index: 2;">
+                  <div style="background: linear-gradient(135deg, #0A4D2E 0%, #166534 100%); color: #FFFFFF !important; border: 2px solid #D4AF37; border-radius: 9999px; box-shadow: 0 3px 10px rgba(10, 77, 46, 0.25); height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0 28px; box-sizing: border-box; gap: 10px;">
+                    <span style="color: #FDE68A; font-size: 12px; line-height: 1;">★</span>
+                    <span style="font-family: 'Plus Jakarta Sans', Arial, sans-serif; font-size: 14.5px; font-weight: 800; letter-spacing: 0.8px; line-height: 1; text-transform: uppercase; color: #FFFFFF !important; display: inline-flex; align-items: center;">OFFICIAL IJTEMAI QURBANI SLIP</span>
+                    <span style="color: #FDE68A; font-size: 12px; line-height: 1;">✦</span>
+                    <span style="font-family: 'Amiri', 'Noto Naskh Arabic', serif; font-size: 16.5px; font-weight: 700; line-height: 1; color: #FFFFFF !important; display: inline-flex; align-items: center;">آفیشل اجتماعی قربانی سلپ</span>
+                    <span style="color: #FDE68A; font-size: 12px; line-height: 1;">★</span>
+                  </div>
+                </div>
+              `;
+            })()}
 
             <!-- Donor Details Ledger Table (Compact Dashes & Left-Aligned Values) -->
-            <table style="width: 100%; border-collapse: collapse; margin: 6px 0; position: relative; z-index: 2;">
-              <tr>
-                <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Sahib-e-Qurbani (نام صاحبِ قربانی):</td>
-                <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
-                <td id="rcptDonorName" style="padding: 4px 0 4px 4px; vertical-align: middle; font-size: 14.5px; font-weight: 900; color: #0A4D2E !important; text-align: left; text-transform: uppercase;">${escapeHtml(ord.donorName)}</td>
-              </tr>
-              <tr>
-                <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Rabta / Mobile (فون نمبر):</td>
-                <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
-                <td id="rcptPhone" style="padding: 4px 0 4px 4px; vertical-align: middle; font-size: 14px; font-weight: 900; color: #111827 !important; font-family: monospace; text-align: left;">${ord.phone}</td>
-              </tr>
+            ${(() => {
+              const isAq = (ord.orderType === 'aqeeqah' || (ord.donorName && ord.donorName.includes('عقیقہ')) || (ord.qurbaniNames && ord.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
+              const isBoy = (ord.aqeeqahGender === 'boy' || (!ord.aqeeqahGender && parseInt(ord.hissaCount || 1) === 2));
+              const chName = ord.aqeeqahChildName || (Array.isArray(ord.qurbaniNames) && ord.qurbaniNames[0]) || ord.donorName;
+
+              if (isAq) {
+                return `
+                  <table style="width: 100%; border-collapse: collapse; margin: 6px 0; position: relative; z-index: 2;">
+                    <tr>
+                      <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Waled / Sarparast (والد / سرپرست):</td>
+                      <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
+                      <td id="rcptDonorName" style="padding: 4px 0 4px 4px; vertical-align: middle; font-size: 14.5px; font-weight: 900; color: #0A4D2E !important; text-align: left; text-transform: uppercase;">${escapeHtml(ord.donorName)}</td>
+                    </tr>
+                    <tr>
+                      <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Bache Ka Naam (نام بچہ/بچی):</td>
+                      <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
+                      <td style="padding: 4px 0 4px 4px; vertical-align: middle; font-size: 14.5px; font-weight: 900; color: #1E1B4B !important; text-align: left; text-transform: uppercase;">${escapeHtml(chName)}</td>
+                    </tr>
+                    <tr>
+                      <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Aqeeqah Qism (عقیقہ کی قسم):</td>
+                      <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
+                      <td style="padding: 4px 0 4px 4px; vertical-align: middle; font-size: 13.5px; font-weight: 900; color: #0A4D2E !important; text-align: left;">${isBoy ? '👦 لڑکا (Boy) - ۲ حصّے شرعی' : '👧 لڑکی (Girl) - ۱ حصّہ شرعی'}</td>
+                    </tr>
+                    <tr>
+                      <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Rabta / Mobile (فون نمبر):</td>
+                      <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
+                      <td id="rcptPhone" style="padding: 4px 0 4px 4px; vertical-align: middle; font-size: 14px; font-weight: 900; color: #111827 !important; font-family: monospace; text-align: left;">${ord.phone}</td>
+                    </tr>
+                `;
+              }
+
+              return `
+                <table style="width: 100%; border-collapse: collapse; margin: 6px 0; position: relative; z-index: 2;">
+                  <tr>
+                    <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Sahib-e-Qurbani (نام صاحبِ قربانی):</td>
+                    <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
+                    <td id="rcptDonorName" style="padding: 4px 0 4px 4px; vertical-align: middle; font-size: 14.5px; font-weight: 900; color: #0A4D2E !important; text-align: left; text-transform: uppercase;">${escapeHtml(ord.donorName)}</td>
+                  </tr>
+                  <tr>
+                    <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Rabta / Mobile (فون نمبر):</td>
+                    <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
+                    <td id="rcptPhone" style="padding: 4px 0 4px 4px; vertical-align: middle; font-size: 14px; font-weight: 900; color: #111827 !important; font-family: monospace; text-align: left;">${ord.phone}</td>
+                  </tr>
+              `;
+            })()}
               <tr>
                 <td style="white-space: nowrap; font-size: 13px; font-weight: 700; color: #374151; padding: 4px 0 4px 0; vertical-align: middle; width: 258px; min-width: 258px;">Pata / Location (پتہ):</td>
                 <td style="width: 32px; min-width: 32px; max-width: 32px; padding: 0 4px; vertical-align: middle;"><div style="border-bottom: 2px dotted #94A3B8; width: 26px; height: 1px;"></div></td>
@@ -6634,19 +6851,61 @@ ${sigTitle}`;
     }
 
     function buildWhatsAppReceiptCaption(ord) {
+      const isAq = (ord.orderType === 'aqeeqah' || (ord.donorName && ord.donorName.includes('عقیقہ')) || (ord.qurbaniNames && ord.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
       const totVal = Number(ord.totalAmount) || 0;
       const paidVal = (ord.paidAmount !== undefined && ord.paidAmount !== null && !isNaN(ord.paidAmount)) ? Number(ord.paidAmount) : 0;
       const balVal = (ord.balanceAmount !== undefined && ord.balanceAmount !== null && !isNaN(ord.balanceAmount)) ? Number(ord.balanceAmount) : Math.max(0, totVal - paidVal);
 
       const rcptNum = ord.receiptNo || ord.id || '---';
       const rawPhone = (ord.phone || '').replace(/[^0-9]/g, '');
-      const namesList = Array.isArray(ord.qurbaniNames) && ord.qurbaniNames.length ? ord.qurbaniNames.join(', ') : (ord.donorName || 'Sahib-e-Qurbani');
-
       const comEn = (appSettings.committeeEn && appSettings.committeeEn.trim()) ? appSettings.committeeEn.trim().toUpperCase() : 'AL-FAJR COMMITTEE AHLE SUNNAT WAL JAMAAT';
       const comHi = (appSettings.committeeHi && appSettings.committeeHi.trim()) ? appSettings.committeeHi.trim() : 'अल फजर कमेटी अहले सुन्नत वल जमात, नागपुर';
       const addr = appSettings.committeeAddress || 'Markaz: Badi Masjid Road, Mominpura, Nagpur • Mo: +91 98230 12345';
       const sigName = appSettings.signatoryName || 'Burhan Attari';
       const sigTitle = appSettings.signatoryTitle || 'Nazim-e-Ala / Signatory';
+
+      if (isAq) {
+        const isBoy = (ord.aqeeqahGender === 'boy' || (!ord.aqeeqahGender && parseInt(ord.hissaCount || 1) === 2));
+        const childName = ord.aqeeqahChildName || (Array.isArray(ord.qurbaniNames) && ord.qurbaniNames[0]) || ord.donorName;
+        const genderUrdu = isBoy ? '👦 لڑکا (Boy) - ۲ حصّے شرعی' : '👧 لڑکی (Girl) - ۱ حصّہ شرعی';
+
+        let msg = '🌙✨ *السلام علیکم ورحمۃ اللہ وبرکاتہ* ✨🌙\n\n';
+        msg += '*بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ*\n';
+        msg += '*كُلُّ غُلَامٍ رَهِينَةٌ بِعَقِيقَتِهِ تُذْبَحُ عَنْهُ يَوْمَ سَابِعِهِ وَيُحْلَقُ وَيُسَمَّى* 🤲\n\n';
+        msg += '*' + comEn + '*\n';
+        msg += '_' + comHi + '_\n';
+        msg += '*آفیشل عقیقہ بکنگ رسید و تصدیق (1447H / ' + (ord.year || selectedYear) + ')*\n\n';
+        msg += 'محترم Janab *' + (ord.donorName || 'Sahib-e-Aqeeqah') + '* Sahab,\n\n';
+        msg += '🎉 *ماشاءاللہ! مبارک ہو! آپ کے بچے/بچی کا عقیقہ کامیابی کے ساتھ بک اور تصدیق ہو گیا ہے۔*\n';
+        msg += '📸 *آفیشل رسید (Official VIP Receipt PNG) ساتھ میں منسلک ہے!*\n\n';
+        msg += '📋 *تفصیلاتِ عقیقہ (Aqeeqah Details):*\n';
+        msg += '🔹 *رسید نمبر:* #' + rcptNum + '\n';
+        msg += '🔹 *والد / سرپرست:* ' + ord.donorName + '\n';
+        msg += '🔹 *نام بچہ / بچی:* ' + childName + '\n';
+        msg += '🔹 *عقیقہ کی قسم:* ' + genderUrdu + '\n';
+        msg += '🔹 *کل حصّے:* ' + (ord.hissaCount || (isBoy ? 2 : 1)) + ' Hissa\n';
+        msg += '🔹 *رابطہ نمبر:* ' + rawPhone + '\n';
+        msg += '🔹 *ناگپور کا پتہ:* ' + (ord.address || 'Nagpur') + '\n';
+        if (ord.marfat && ord.marfat !== 'DIRECT') {
+          msg += '🔹 *بمعرفت (Ba-Marfat):* ' + ord.marfat + '\n';
+        }
+        msg += '💰 *کل رقم:* ₹ ' + totVal.toLocaleString('en-IN') + '\n';
+        msg += '✅ *ادا شدہ رقم:* ₹ ' + paidVal.toLocaleString('en-IN') + '\n';
+        if (balVal > 0) {
+          msg += '⏳ *بقایا رقم (Due):* ₹ ' + balVal.toLocaleString('en-IN') + '\n';
+        } else {
+          msg += '✨ *ادائیگی اسٹیٹس:* مکمل ادا (Full Paid)\n';
+        }
+        msg += '🏢 *' + addr + '*\n\n';
+        msg += '🤲 *دعائے خیر برائے نوزائیدہ:*\n';
+        msg += 'اللہ تبارک و تعالیٰ اس عقیقہ کو اپنی بارگاہ میں شرفِ قبولیت عطا فرمائے۔ بچے کو صحت و عافیت، لمبی عمر، دین کی سمجھ، نیک عمل اور والدین کا فرمانبردار بنائے۔ آمین یارب العالمین! 🤲\n\n';
+        msg += '_دعاؤں کا طلبگار:_\n';
+        msg += '*' + sigName + '*\n';
+        msg += sigTitle + ' - Al-Fajr Committee, Nagpur';
+        return msg;
+      }
+
+      const namesList = Array.isArray(ord.qurbaniNames) && ord.qurbaniNames.length ? ord.qurbaniNames.join(', ') : (ord.donorName || 'Sahib-e-Qurbani');
 
       let msg = '🌙✨ *السلام علیکم ورحمۃ اللہ وبرکاتہ* ✨🌙\n\n';
       msg += '*بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ*\n';
@@ -7030,7 +7289,7 @@ _Min Janib:_
       if (st === 'Zibah Ho Gaya') {
         sendZibahWhatsApp(currentReceiptOrder.id);
       } else {
-        sendBookingWhatsApp(currentReceiptOrder.id);
+        sendBookingReceiptDirectWhatsApp(currentReceiptOrder.id);
       }
     }
 
@@ -8102,7 +8361,229 @@ ${appSettings.committeeAddress || 'Markaz: Badi Masjid Road, Mominpura, Nagpur �
     // -------------------------------------------------------------------------
     // ORDER CREATION & EDITING
     // -------------------------------------------------------------------------
-    function openNewOrderModal() {
+    
+    // =========================================================================
+    // AQEEQAH & DIRECT VIP WHATSAPP SUITE (عقیقہ و ڈائریکٹ وی آئی پی واٹس ایپ)
+    // =========================================================================
+    function setOrderBookingType(type) {
+      const hidden = document.getElementById('orderBookingType');
+      if (hidden) hidden.value = type;
+
+      const btnQ = document.getElementById('btnTypeQurbani');
+      const btnA = document.getElementById('btnTypeAqeeqah');
+      const box = document.getElementById('aqeeqahOptionsBox');
+
+      if (type === 'aqeeqah') {
+        if (btnQ) btnQ.className = 'flex-1 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-1.5 text-slate-700 hover:bg-white';
+        if (btnA) btnA.className = 'flex-1 py-2 rounded-xl text-xs font-black transition cursor-pointer flex items-center justify-center gap-1.5 bg-indigo-700 text-white shadow-sm';
+        if (box) box.classList.remove('hidden');
+
+        document.getElementById('orderModalTitle').innerText = '+ Naya Aqeeqah (عقیقہ بکنگ) Darj Karein';
+        const curGender = document.getElementById('orderAqeeqahGender')?.value || 'boy';
+        setAqeeqahGender(curGender);
+      } else {
+        if (btnQ) btnQ.className = 'flex-1 py-2 rounded-xl text-xs font-black transition cursor-pointer flex items-center justify-center gap-1.5 bg-[#0A4D2E] text-white shadow-sm';
+        if (btnA) btnA.className = 'flex-1 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center justify-center gap-1.5 text-slate-700 hover:text-indigo-900 hover:bg-white';
+        if (box) box.classList.add('hidden');
+
+        document.getElementById('orderModalTitle').innerText = '+ Naya Order (Booking) Darj Karein';
+        handleHisseCountChange();
+      }
+    }
+
+    function setAqeeqahGender(gender) {
+      const hidden = document.getElementById('orderAqeeqahGender');
+      if (hidden) hidden.value = gender;
+
+      const btnB = document.getElementById('btnAqBoy');
+      const btnG = document.getElementById('btnAqGirl');
+      const childLabel = document.getElementById('aqeeqahChildLabel');
+      const childInput = document.getElementById('orderAqeeqahChildName');
+
+      if (gender === 'boy') {
+        if (btnB) btnB.className = 'py-2.5 px-3 rounded-xl border-2 font-black text-xs flex items-center justify-center gap-2 cursor-pointer transition bg-indigo-600 text-white border-indigo-700 shadow-sm';
+        if (btnG) btnG.className = 'py-2.5 px-3 rounded-xl border-2 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition bg-white text-slate-700 border-slate-300 hover:border-pink-400';
+        if (childLabel) childLabel.innerText = 'بچے کا نام بمع ولدیت (لڑکے کے ۲ حصّے شرعی):';
+        if (childInput && !childInput.value) childInput.placeholder = 'مثلاً: محمد زین ولد برہان عطاری';
+
+        // Boy = 2 hissas
+        const hissaSelect = document.getElementById('orderHisseCount');
+        if (hissaSelect) hissaSelect.value = '2';
+      } else {
+        if (btnB) btnB.className = 'py-2.5 px-3 rounded-xl border-2 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition bg-white text-slate-700 border-slate-300 hover:border-indigo-400';
+        if (btnG) btnG.className = 'py-2.5 px-3 rounded-xl border-2 font-black text-xs flex items-center justify-center gap-2 cursor-pointer transition bg-pink-600 text-white border-pink-700 shadow-sm';
+        if (childLabel) childLabel.innerText = 'بچی کا نام بمع ولدیت (لڑکی کا ۱ حصّہ شرعی):';
+        if (childInput && !childInput.value) childInput.placeholder = 'مثلاً: فاطمہ بنت برہان عطاری';
+
+        // Girl = 1 hissa
+        const hissaSelect = document.getElementById('orderHisseCount');
+        if (hissaSelect) hissaSelect.value = '1';
+      }
+
+      calculateOrderAmounts();
+      syncAqeeqahNiyyatNames();
+    }
+
+    function handleAqeeqahChildNameInput() {
+      syncAqeeqahNiyyatNames();
+    }
+
+    function syncAqeeqahNiyyatNames() {
+      const isAq = (document.getElementById('orderBookingType')?.value === 'aqeeqah');
+      if (!isAq) return;
+
+      const gender = document.getElementById('orderAqeeqahGender')?.value || 'boy';
+      const childName = (document.getElementById('orderAqeeqahChildName')?.value || '').trim();
+      const hissaCount = parseInt(document.getElementById('orderHisseCount').value) || (gender === 'boy' ? 2 : 1);
+
+      const fallback = childName || (gender === 'boy' ? 'عقیقہ لڑکا' : 'عقیقہ لڑکی');
+
+      let defaultNames = [];
+      if (gender === 'boy' && hissaCount === 2) {
+        defaultNames = [
+          'عقیقہ ' + fallback + ' (حصّہ ۱)',
+          'عقیقہ ' + fallback + ' (حصّہ ۲)'
+        ];
+      } else if (gender === 'girl' && hissaCount === 1) {
+        defaultNames = [
+          'عقیقہ ' + fallback
+        ];
+      } else {
+        for (let i = 1; i <= hissaCount; i++) {
+          defaultNames.push('عقیقہ ' + fallback + ' (حصّہ ' + i + ')');
+        }
+      }
+
+      handleHisseCountChange(defaultNames);
+    }
+
+    function openNewAqeeqahOrderModal() {
+      openNewOrderModal();
+      setOrderBookingType('aqeeqah');
+      setAqeeqahGender('boy');
+      openModalWithHistory('orderModal');
+    }
+
+    function filterOrdersByAqeeqah(subType = 'AQEEQAH') {
+      const el = document.getElementById('orderTypeFilter');
+      if (el) el.value = subType;
+      applyOrderFilters();
+      const tableSec = document.getElementById('ordersMasterTableSection') || document.getElementById('ordersMasterTableBody');
+      if (tableSec) tableSec.scrollIntoView({ behavior: 'smooth' });
+      showToast('👶 عقیقہ کے سبھی آرڈرز لسٹ میں فلٹر ہو گئے!');
+    }
+
+    // DIRECT 1-ACTION VIP WHATSAPP DISPATCH (BYPASSES MODAL INTERMEDIATE SHEET)
+    async function sendBookingReceiptDirectWhatsApp(orderIdOrObj) {
+      let ord = orderIdOrObj;
+      if (typeof orderIdOrObj === 'string') {
+        const list = getActiveYearOrders();
+        ord = list.find(o => o.id === orderIdOrObj || o.receiptNo === orderIdOrObj);
+        if (!ord) ord = orders2026.find(o => String(o.receiptNo) === String(orderIdOrObj));
+      }
+      if (!ord) return;
+
+      currentReceiptOrder = ord;
+      const rcptNum = ord.receiptNo || ord.id || '---';
+      const cleanPhone = (ord.phone || '').replace(/[^0-9]/g, '');
+      const validPhone = cleanPhone.length === 10 ? ('91' + cleanPhone) : cleanPhone;
+      const isAq = (ord.orderType === 'aqeeqah' || (ord.donorName && ord.donorName.includes('عقیقہ')) || (ord.qurbaniNames && ord.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
+
+      showToast(isAq ? '⚡ عقیقہ رسید تصویر اور واٹس ایپ تیار ہو رہا ہے...' : '⚡ وی آئی پی رسید تصویر اور واٹس ایپ تیار ہو رہا ہے...');
+
+      // 1. Pre-render VIP receipt to canvas & download PNG automatically
+      try {
+        const tempContainer = document.getElementById('receiptPreRenderArea');
+        if (tempContainer) {
+          const designId = ord.receiptDesign || activeReceiptDesign || 'design2';
+          tempContainer.innerHTML = buildReceiptHtml(designId, ord);
+          const receiptEl = tempContainer.querySelector('#printableReceiptArea');
+          if (receiptEl) {
+            if (document.fonts) await document.fonts.ready;
+            const canvas = await html2canvas(receiptEl, {
+              scale: 2.5,
+              useCORS: true,
+              allowTaint: true,
+              backgroundColor: '#FCFBF7',
+              logging: false
+            });
+
+            if (canvas) {
+              canvas.toBlob(blob => {
+                if (!blob) return;
+                const link = document.createElement('a');
+                const filePrefix = isAq ? 'AlFajr_Aqeeqah_Rasheed_' : 'AlFajr_VIP_Rasheed_';
+                link.download = filePrefix + rcptNum + '.png';
+                link.href = URL.createObjectURL(blob);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                if (navigator.clipboard && window.ClipboardItem) {
+                  try {
+                    navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                  } catch(e) {}
+                }
+              }, 'image/png', 1.0);
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('VIP Receipt background note:', err);
+      }
+
+      // 2. Build VIP Islamic Caption
+      const captionText = buildWhatsAppReceiptCaption(ord);
+
+      // 3. Launch WhatsApp directly with 350ms delay (Direct gesture, 0 delay, no popup block)
+      setTimeout(() => {
+        openWhatsAppDirect(validPhone, captionText);
+        showToast(isAq ? '📲 عقیقہ رسید ڈائریکٹ واٹس ایپ پر کھل گئی!' : '📲 وی آئی پی رسید ڈائریکٹ واٹس ایپ پر کھل گئی!');
+      }, 400);
+
+      // 4. Show persistent 1-tap quick action banner on screen
+      showWhatsAppQuickActionBanner(ord, validPhone, captionText);
+    }
+
+    function showWhatsAppQuickActionBanner(ord, phone, caption) {
+      let existing = document.getElementById('floatingWhatsAppBanner');
+      if (existing) existing.remove();
+
+      const isAq = (ord.orderType === 'aqeeqah' || (ord.donorName && ord.donorName.includes('عقیقہ')) || (ord.qurbaniNames && ord.qurbaniNames.some(n => String(n).includes('عقیقہ'))));
+      const rcptNum = ord.receiptNo || ord.id || '---';
+
+      const banner = document.createElement('div');
+      banner.id = 'floatingWhatsAppBanner';
+      banner.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-[#075E54] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-emerald-400 max-w-[95vw] transition';
+      banner.innerHTML = `
+        <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xl shrink-0 shadow">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <div>
+          <div class="font-black text-xs text-white flex items-center gap-1.5">
+            <span>${isAq ? '👶 عقیقہ رسید #' + rcptNum : '📜 وی آئی پی رسید #' + rcptNum} محفوظ ہو گئی!</span>
+            <span class="text-[9px] bg-emerald-400/30 text-emerald-100 px-1.5 py-0.2 rounded font-bold">✓ تصویر ڈاؤنلوڈ ہو گئی</span>
+          </div>
+          <div class="text-[10px] text-emerald-100 font-semibold">اگر واٹس ایپ نہ کھلا ہو تو دوبارہ بھیجنے کے لیے دبائیں</div>
+        </div>
+        <button onclick="openWhatsAppDirect('${phone}', ` + JSON.stringify(caption) + `); this.parentElement.remove();" class="bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-black text-xs px-3.5 py-2 rounded-xl shrink-0 cursor-pointer shadow transition active:scale-95">
+          <i class="fa-brands fa-whatsapp mr-1"></i> کھولیں
+        </button>
+        <button onclick="this.parentElement.remove()" class="text-emerald-200 hover:text-white text-xs p-1 ml-1 cursor-pointer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      `;
+      document.body.appendChild(banner);
+
+      setTimeout(() => {
+        if (banner && banner.parentNode) banner.remove();
+      }, 20000);
+    }
+
+function openNewOrderModal() {
+      setOrderBookingType('qurbani');
+      const chInp = document.getElementById('orderAqeeqahChildName');
+      if (chInp) chInp.value = '';
       document.getElementById('orderModalTitle').innerText = '+ Naya Order (Booking) Darj Karein';
       document.getElementById('editOrderId').value = '';
       const dsEl = document.getElementById('orderReceiptDesign');
@@ -8173,6 +8654,15 @@ ${appSettings.committeeAddress || 'Markaz: Badi Masjid Road, Mominpura, Nagpur �
 
       const autoToggle = document.getElementById('orderAutoWhatsAppToggle');
       if (autoToggle) autoToggle.checked = false;
+
+      if (ord.orderType === 'aqeeqah' || (ord.donorName && ord.donorName.includes('عقیقہ')) || (ord.qurbaniNames && ord.qurbaniNames.some(n => String(n).includes('عقیقہ')))) {
+        setOrderBookingType('aqeeqah');
+        setAqeeqahGender(ord.aqeeqahGender || (parseInt(ord.hissaCount || 1) === 2 ? 'boy' : 'girl'));
+        const chInp = document.getElementById('orderAqeeqahChildName');
+        if (chInp) chInp.value = ord.aqeeqahChildName || '';
+      } else {
+        setOrderBookingType('qurbani');
+      }
 
       handleHisseCountChange(ord.qurbaniNames || []);
       calculateOrderAmounts();
@@ -8306,11 +8796,18 @@ ${appSettings.committeeAddress || 'Markaz: Badi Masjid Road, Mominpura, Nagpur �
       const nameInputs = document.querySelectorAll('input[name="qurbaniNameInput"]');
       const qurbaniNames = Array.from(nameInputs).map(inp => inp.value.trim()).filter(n => n.length > 0);
 
+      const bookingType = document.getElementById('orderBookingType')?.value || 'qurbani';
+      const aqeeqahGender = document.getElementById('orderAqeeqahGender')?.value || '';
+      const aqeeqahChildName = (document.getElementById('orderAqeeqahChildName')?.value || '').trim();
+
       const payload = {
         id: editId || (`AFQ-${yr}-` + String((yr === '2026' ? orders2026 : orders2027).length + 1).padStart(3, '0')),
         receiptNo: editId ? (getActiveYearOrders().find(o => o.id === editId)?.receiptNo || editId) : String((yr === '2026' ? orders2026 : orders2027).length + 1),
         year: parseInt(yr),
         date: new Date().toISOString().split('T')[0],
+        orderType: bookingType,
+        aqeeqahGender: bookingType === 'aqeeqah' ? aqeeqahGender : '',
+        aqeeqahChildName: bookingType === 'aqeeqah' ? aqeeqahChildName : '',
         donorName,
         phone,
         address,
@@ -8396,8 +8893,8 @@ ${appSettings.committeeAddress || 'Markaz: Badi Masjid Road, Mominpura, Nagpur �
         if (zibahStatus === 'Zibah Ho Gaya') {
           sendZibahWhatsApp(saved.id);
         } else if (autoWhatsApp || !editId) {
-          // Open Order Confirmation & WhatsApp Dispatch Modal
-          openAutoDispatchModal(saved);
+          // Direct VIP WhatsApp Dispatch (Zero intermediate modal friction!)
+          sendBookingReceiptDirectWhatsApp(saved);
         }
       } catch (err) {
         alert('Order save error: ' + err.message);
