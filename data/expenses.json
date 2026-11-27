@@ -1,0 +1,38 @@
+[
+  {
+    "date": "2026-11-26",
+    "category": "Transportation & Gaadi Kiraya",
+    "description": "Transport",
+    "amount": 40000,
+    "paidTo": "",
+    "paymentMode": "Cash",
+    "id": "EXP-2026-005"
+  },
+  {
+    "date": "2026-11-26",
+    "category": "Transportation & Gaadi Kiraya",
+    "description": "Transport",
+    "amount": 40000,
+    "paidTo": "",
+    "paymentMode": "Cash",
+    "id": "EXP-2026-004"
+  },
+  {
+    "date": "2026-11-26",
+    "category": "Kasai wa Zibah Ujrat (Butcher Fees)",
+    "description": "Kasai Ko Diya Gaya",
+    "amount": 170000,
+    "paidTo": "",
+    "paymentMode": "Cash",
+    "id": "EXP-2026-002"
+  },
+  {
+    "date": "2026-11-26",
+    "category": "Janwaron Ki Khareed (Animal Purchase)",
+    "description": "82",
+    "amount": 580000,
+    "paidTo": "",
+    "paymentMode": "Cash",
+    "id": "EXP-2026-001"
+  }
+]
