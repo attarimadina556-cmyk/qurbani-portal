@@ -24,11 +24,46 @@ function readJsonFile(filename, defaultValue = []) {
   return defaultValue;
 }
 
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
+const GITHUB_REPO = 'attarimadina556-cmyk/qurbani-portal';
+
+async function syncFileToGitHub(filename, data) {
+  if (!GITHUB_TOKEN) return;
+  try {
+    const relPath = `data/${filename}`;
+    const contentB64 = Buffer.from(JSON.stringify(data, null, 2), 'utf8').toString('base64');
+    const headers = {
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'User-Agent': 'AlFajr-AutoSync/1.0'
+    };
+    let sha = null;
+    const getRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${relPath}`, { headers });
+    if (getRes.ok) {
+      const getJson = await getRes.json();
+      sha = getJson.sha;
+    }
+    await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${relPath}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({
+        message: `AutoSync ${filename} [${new Date().toISOString()}]`,
+        content: contentB64,
+        sha: sha || undefined
+      })
+    });
+    console.log(`[GitHub Cloud Sync] Synced ${filename} to GitHub successfully.`);
+  } catch (err) {
+    console.warn(`[GitHub Cloud Sync] Warning for ${filename}:`, err.message);
+  }
+}
+
 function writeJsonFile(filename, data) {
   const filePath = path.join(DATA_DIR, filename);
   try {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
     createAutoSnapshot(filename, data);
+    syncFileToGitHub(filename, data);
     return true;
   } catch (err) {
     console.error(`Error writing ${filename}:`, err.message);
